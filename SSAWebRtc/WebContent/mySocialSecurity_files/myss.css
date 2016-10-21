@@ -1,0 +1,305 @@
+.c-video-link {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  max-width: 380px;
+  width: 100%;
+  height: 220px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.c-video-link.large {
+    height: 340px;
+    max-width: 480px;    
+}
+
+.c-video-link:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .15);
+  background-image: url(/img/icons/home/play.svg);
+  background-position: 50%;
+  background-size: 4em;
+  background-repeat: no-repeat;
+  opacity: .8;
+}
+
+.c-video-link:hover:before,
+.c-video-link:focus:before {
+  opacity: 1;
+}
+
+.myss-hero {
+  background-color: #f1f1f1;
+  background-image: none;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #333;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.myss-hero__wrapper {
+  max-width: 1000px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #161c56;
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.myss-hero__header {
+  font-size: 1.5rem;
+  margin: .5rem 0;
+}
+
+.myss-hero__content {
+  color: #fff;
+}
+
+.myss-hero__icon {
+  display: inline-block;
+  height: 1.25rem;
+  width: 1.25rem;
+  vertical-align: text-bottom;
+}
+
+.myss-hero .my {
+  color: #fff;
+}
+
+.myss-hero .ssa {
+  color: #fff;
+}
+
+.myss-button {
+  background-color: #009688;
+  color: #fff;
+  display: block;
+  font-weight: 600;
+  padding: .5rem;
+  text-align: center;
+}
+
+.myss-blue {
+  color: #184179;
+}
+
+.myss-green {
+  color: #009688;
+}
+
+.myss-featured-link {
+  background-color: #333;
+  background-image: url(//placehold.it/600x400/);
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 1px solid #fff;
+  color: #fff;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1.25rem;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;
+  width: 100%;
+}
+
+.myss-featured-link div {
+  background-color: rgba(33, 33, 33, .7);
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  min-height: 250px;
+  padding: .75rem;
+  text-align: center;
+}
+
+.content section {
+  padding: 1.5rem;
+}
+
+.content section:nth-of-type(2n) {
+  background-color: #f1f1f1;
+}
+
+.myss-content__header {
+  font-family: Georgia, serif;
+  font-size: 150%;
+  margin: 0;
+  padding: 0 0 1.5rem 0;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.myss-content__header .my,
+.myss-content__header .ssa {
+  font-size: inherit;
+}
+
+.column {
+  padding: 1.5rem;
+}
+
+.fs-180 {
+  font-size: 180%;
+}
+
+.myss-button:hover,
+.myss-button:focus {
+  background-color: #4db6ac;
+  color: #fff;
+}
+
+.myss-featured-link:hover,
+.myss-featured-link:focus {
+  color: #fff;
+}
+
+.myss-featured-link:hover div,
+.myss-featured-link:focus div {
+  background-color: rgba(17, 85, 204, .7);
+  color: #fff;
+}
+
+@media (min-width: 37.5em) {
+  .myss-hero__header {
+    margin-top: 0;
+  }
+
+  .myss-button {
+    display: inline-block;
+  }
+
+  .myss-border {
+    border: 1px dotted #bbb;
+    border-width: 0 0 1px;
+  }
+
+  .myss-featured__wrapper {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 910px;
+    margin: auto;
+  }
+
+  .myss-featured-link {
+    width: 50%;
+  }
+}
+
+@media (min-width: 47.5em) {
+  .myss-hero {
+    min-height: 300px;
+    height: 300px;
+  }
+
+  .myss-hero .my {
+    color: #c00;
+  }
+
+  .myss-hero .ssa {
+    color: #369;
+  }
+
+  .myss-hero__wrapper {
+    background-color: transparent;
+    width: 50%;
+  }
+
+  .myss-hero__content {
+    color: #333;
+  }
+
+  .myss-hero__header {
+    font-size: 200%;
+  }
+
+  .myss-border {
+    border-width: 0 1px 0 0;
+    padding: 0 1rem 0 0;
+  }
+
+  .row {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 1050px;
+    margin: auto;
+  }
+
+  .column {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: .5rem 2rem;
+  }
+
+  .center {
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .center .column {
+    margin: auto;
+  }
+
+  .content section {
+    padding: 1.5rem 0;
+  }
+}
+
+@media (min-width: 64em) {
+  .myss-hero__content {
+    max-width: 425px;
+  }
+}
+
+@media (min-width: 75em) {
+  .myss-hero {
+    min-height: 400px;
+    height: 400px;
+  }
+}

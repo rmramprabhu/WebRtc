@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SSA Manage Agents App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<script src="js/agentManager.js"></script>
+<div class="panel panel-primary">
+	  <div class="panel-heading text-center">
+	    <h3 class="panel-title">SSA Manager App</h3>
+	  </div>
+	  <div class="panel-body">
+	    <div class="btn-group btn-group-lg">
+		  <button type="button" class="btn btn-primary" id="retirement">Retirement</button>
+		  <button type="button" class="btn btn-primary" id="disability">Disability</button>
+		  <button type="button" class="btn btn-primary" id="medicare">Medicare</button>
+		  <button type="button" class="btn btn-primary" id="w2">W2</button>
+		  <button type="button" class="btn btn-primary" id="general">General</button>
+		</div>
+		<hr>
+		<table id="agents" class="table table-striped" border='1'>
+		 <thead> 
+		    <tr class="success">
+		      <th>Email Id</th>
+		      <th>Status</th>
+		      <th>Connected To</th>
+		      <th>Call Duration with Previous Client</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  </tbody>
+		</table>
+	  </div>
+ </div>
+
+</body>
+</html>

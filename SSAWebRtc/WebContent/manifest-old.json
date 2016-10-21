@@ -1,0 +1,30 @@
+{
+  "name": "WSC push notification Demo12345",
+  "short_name": "WSC push notification Demo12345",
+  "icons": [{
+        "src": "images/ic-Innovation-red.png",
+        "sizes": "256x256"
+      }],
+  "start_url": "./index.html",
+  "display": "standalone",
+
+  "gcm_sender_id": "<Your Project Number from https://console.developers.google.com>",
+
+  "gcm_user_visible_only": true,
+  
+  "icons": {
+    "128": "oracle.png"
+  },
+  "background": {
+    "scripts": ["content.js"]
+  },
+  "content_scripts": [
+    {
+      "js": [ "mediator.js" ],
+       "matches": ["https://13.63.249.131:7002:/*"]
+    }
+  ],
+  "permissions": [
+    "desktopCapture"
+  ]
+}

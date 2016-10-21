@@ -1,0 +1,202 @@
+html,
+body {
+  height: 100%;
+}
+
+#credits {
+    margin-top: 5%;
+}
+
+.form-signin {
+  max-width: 500px;
+  padding: 15px;
+  /*margin: 0 auto;*/
+}
+
+footer {
+  bottom: 0;
+  /*    position: fixed;*/
+
+  width: 100%;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #efefef;
+}
+
+.embed-responsive video.localVideo {
+  width: 17%;
+  height: 17%;
+  z-index: 2;
+  bottom: 20px;
+  right: 20px;
+  top: inherit;
+  left: inherit;
+}
+
+.panelcustomer{
+	margin-bottom:20px;
+	background-color:#fff;
+	border:1px solid transparent;
+	border-radius:4px;
+	-webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);
+	box-shadow:0 1px 1px rgba(0,0,0,.05);
+	width: 47%;
+	height: 37%; 
+	float: right;
+	}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+
+.msg-in .time-user,
+.ft-in .time-user {
+  color: #cc0202;
+}
+
+.msg-out .time-user,
+.ft-out .time-user {
+  color: blue;
+}
+
+.msg-in,
+.msg-out,
+.ft-in,
+.ft-out {
+  padding-bottom: 5px;
+}
+
+.table-msrp {
+  display: table;
+  width: 100%;
+}
+
+.heading-msrp {
+  display: table-row;
+  text-align: center;
+  color: #9d9d9d;
+}
+
+.row-msrp {
+  display: table-row;
+}
+
+.cell-msrp,
+.dh {
+  display: table-cell;
+  border: 1px solid #ccc;
+  width: 168px;
+}
+
+.progress {
+  margin-bottom: 0;
+}
+
+.glyphicon-remove {
+  cursor: pointer;
+}
+
+.me {
+  padding-right: 20px;
+}
+
+.handover,
+.hibernate {
+  padding-right: 20px;
+}
+
+#overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999999;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.callBtn {
+  border-radius: 4px;
+}
+
+#startAudioBtn1 {
+  right: 0.1em;
+}
+
+#startDataChannelBtn1 {
+  left: 100.1em;
+  top: 32em;
+}
+
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.button {
+    padding: 10px; 
+    margin-right: 8px;
+    margin-bottom:10px;
+    font-family: Arial, Tahoma, Verdana, FreeSans, sans-serif;
+    text-shadow:0 1px 1px rgba(0, 0, 0, 0.25);
+    display: inline-block;
+    white-space: nowrap;
+    line-height:1em;
+    position:absolute;
+    outline: none;
+    top: 30px;
+    right: 263px;
+    overflow: visible;
+    cursor: pointer;
+    border-radius: 4px;
+    -moz-border-radius: 4px; 
+    -webkit-border-radius:4px; 
+    box-shadow:1px 1px 2px 0 #CCCCCC;
+    -moz-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    -webkit-box-shadow: 1px 1px 2px 0 #CCCCCC;
+}
+
+.button_about {
+    background: url(https://13.63.249.131:7002/webRTCDemo/images/phone.svg) 3px 2px no-repeat;
+    padding-left: 35px;
+    padding-right: 15px;
+}
+
+.button_blue {
+    border: 1px solid #305875;
+    color: #FBFBFB;
+    background-color: #3D6E97;
+}
+.button_blue:hover {
+    color: #FBFBFB;
+    opacity:0.9; 
+    filter:alpha(opacity=90);        
+}

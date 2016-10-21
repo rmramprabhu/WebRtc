@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <title>SSA WebRTC Agent</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" charset="utf-8">
+  <meta name="generator" content="Bootply" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/ui.css">
+  <link rel="stylesheet" type="text/css" href="thirdparty/bootstrap/css/bootstrap.min.css">
+
+  <script type="text/javascript" src="js/wsc-common.js"></script>
+  <script type="text/javascript" src="js/wsc-call.js"></script>
+  <script type="text/javascript" src="js/wsc-chat.js"></script>
+  <script type="text/javascript" src="js/wsc-filetransfer.js"></script>
+  <script type="text/javascript" src="js/wsc-messaging.js"></script>
+  <script type="text/javascript" src="js/wsc-ie-adapter.js"></script>
+
+  <link rel="manifest" href="manifest.json">
+
+  <script type="text/javascript" src="thirdparty/require.min.js"></script>
+  <script type="text/javascript">
+    require(['js/config'], function () {
+      require(['bootstrap', 'connection']);
+    });
+  </script>
+</head>
+
+<body background="images/ssagov.png">
+
+  <!-- Header -->
+  <div id="top-nav" class="navbar navbar-inverse navbar-static-top" style="display: none;">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-toggle"></span>
+        </button>
+        <a class="navbar-brand" href="#">Oracle Communications WebRTC Session Controller</a>
+      </div>
+      <p class="navbar-text navbar-right user-banner" style="display: none">
+        <span class="me"></span>
+        <a href="#" class="navbar-link handover">Hand Over</a>
+        <a href="#" class="navbar-link hibernate" style="display: none">Hibernate</a>
+        <a href="#" class="navbar-link logout" id="logoutBtn"><i class="glyphicon glyphicon-lock"></i> Logout</a>
+      </p>
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /Header -->
+
+  <!-- Log in -->
+  <div class="container login">
+    <div class="row">
+      <div class="col-sm-12">
+
+        <div id="loginForm" class="form-inline" role="form">
+          <div class="form-group">
+            <!--  <label for="username">Username:</label>-->
+            <input type="hidden" value="customer@ssa.gov" class="form-control" id="username" placeholder="Enter your username">
+          </div>
+          <div class="form-group">
+            <!--  <label for="password">Password:</label>-->
+            <input type="hidden" class="form-control" id="password" placeholder="optional for guest login">
+          </div>
+          <div class="form-group">
+            <!--<label for="tenant">Tenant:</label>-->
+            <input type="hidden" class="form-control" id="tenant" placeholder="Tenant is optional">
+          </div>
+          <button type="button" class="btn btn-info loginBtn" id="registerBtn">Login</button>
+          <div id="loginWarningDiv" class="alert alert-warning" style="display: none;margin-top: 20px">
+            <strong>Warning: </strong><span id="loginWarningMsg"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  <hr> -->
+  </div>
+  <!-- /Log in -->
+ 
+  <!-- Calls -->
+  <div class="container">
+
+    <!-- lower section -->
+    <div class="row">
+
+      <div class="col-md-12" id="CallsBanner">
+        <h3><i class="glyphicon glyphicon-phone"></i> Calls</h3>
+        <div id="deviceCapability" style="display: none"></div>
+        <!--  <hr>-->
+      </div>
+      
+                <div class="btn-group divStartDataChannel" role="group">
+                  <button type="button" class="btn btn-warning btnStartDatachannel" id="startDataChannelBtn1" style="background-color : #002a5c">Connect to Agent</button>
+                </div>
+                
+      <div class="col-md-6" style="display: none;>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              <h4>Make a Call</h4>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <form class="form form-vertical">
+              <div class="form-group">
+                <label for="callee" class="sr-only">Target</label>
+                <input type="hidden" id="callee" value="agent@ssa.gov" class="form-control input" placeholder="Target" required="" autofocus="">
+              </div>
+
+              <div class="btn-group btn-group-justified hidden-xs" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-primary btnStartAudio" id="startAudioBtn1">Audio Call</button>
+                </div>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-success btnStartVideo" id="startVideoBtn1">Video Call</button>
+                </div>
+
+              </div>
+
+              <div class="btn-group-vertical visible-xs" role="group" aria-label="...">
+                <div class="btn-group " role="group">
+                  <button type="button" class="btn callBtn btn-primary btnStartAudio" id="startAudioBtn2">Audio Call</button>
+                </div>
+                <div class="btn-group " role="group">
+                  <button type="button" class="btn callBtn btn-success btnStartVideo" id="startVideoBtn2">Video Call</button>
+                </div>
+                <div class="btn-group divStartDataChannel" role="group">
+                  <button type="button" class="btn callBtn btn-warning btnStartDataChannel" id="startDataChannelBtn2">DataChannel Chat</button>
+                </div>
+              </div>
+
+              <!--  <div id="makeCallWarningDiv" class="alert alert-warning" style="display: none;margin-top: 20px">
+                <strong>Warning: </strong><span id="makeCallWarningMsg"></span>
+              </div>-->
+            </form>
+          </div>
+          <!--/panel content-->
+        </div>
+        <!--/panel-->
+      </div>
+      <!-- /col-md-6 -->
+
+      <div class="col-md-6" style="display: none;">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              <i class="glyphicon glyphicon-cog pull-right"></i>
+              <h4>Configuration</h4>
+            </div>
+          </div>
+          <div class="panel-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Trickle Mode</label>
+                <div class="col-sm-8">
+                  <label class="radio-inline">
+                    <input type="radio" name="trickleMode" id="trickleOffId" value="off" checked> Off
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="trickleMode" id="trickleHalfId" value="half"> Half
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="trickleMode" id="trickleFullId" value="full"> Full
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="iceServers" class="col-sm-4 control-label">ICE Server</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="iceServers" placeholder="{&quot;url&quot;:&quot;&quot;, &quot;username&quot;:&quot;&quot;, &quot;credential&quot;:&quot;&quot;}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="frameRate" class="col-sm-4 control-label">Frame Rate</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="frameRate">
+                    <option value="-1">Native</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="videoResolution" class="col-sm-4 control-label">Video Resolution</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="videoResolution">
+                    <option value='{"width":"-1","height":"-1"}'>Native</option>
+                    <option value='{"width":"128","height":"96"}'>128 x 96</option>
+                    <option value='{"width":"320","height":"240"}'>320 x 240</option>
+                    <option value='{"width":"480","height":"320"}'>480 x 320</option>
+                    <option value='{"width":"720","height":"480"}'>720 x 480</option>
+                    <option value='{"width":"1280","height":"720"}'>1280 x 720</option>
+                    <option value='{"width":"1440","height":"1080"}'>1440 x 1080</option>
+                    <option value='{"width":"1920","height":"1080"}'>1920 x 1080</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!--/panel content-->
+        </div>
+        <!--/panel-->
+      </div>
+      <!--/col-md-6-->
+
+    </div>
+    <!--/row-->
+
+    <div class="row calls">
+
+      <!-- Call - 1 -->
+      <div class="col-md-6 call-window call-window-template" style="display: none">
+        <div class="panel panel-default" style="width: 530px;margin: 450px 0 0 1380px;left: 100%;top:410px;">
+          <div class="panel-heading">
+            <i class="glyphicon pull-right"></i>
+            <h4 class="panel-title"> <!-- To Alice@example.com --> </h4>
+          </div>
+          <div class="panel-body call-body" style="padding: 0;">
+            <button type="button" class="btn btn-default btn-cancel" style="display: none">Cancel</button>
+            <button type="button" class="btn btn-default btn-removeVideo" style="display: none">Audio Only</button>
+            <!--  <button type="button" class="btn btn-default btn-addVideo" style="display: none">Add Video</button>-->
+            <button type="button" class="btn btn-default btn-mute" style="display: none">Mute</button>
+            <button type="button" class="btn btn-default btn-unmute" style="display: none">Un-Mute</button>
+            <!--<button type="button" class="btn btn-default btn-addAudio" style="display: none">Add Audio</button>-->
+            <button type="button" class="btn btn-default btn-addChat" style="display: none">Add Chat</button>
+            <button type="button" class="btn btn-default btn-removeChat" style="display: none">Remove Chat</button>
+            <button type="button" class="btn btn-default btn-hangup" style="display: none">Hang Up</button>
+            <div class="alert alert-warning callWarningDiv" style="display: none;margin-top: 20px">
+              <strong>Warning: </strong><span class="callWarningMsg"></span>
+            </div>
+            <div class="embed-responsive embed-responsive-4by3 mediaCall">
+              <div class="webrtcCall">
+                <audio class="localAudio" autoplay muted></audio>
+                <audio class="remoteAudio" autoplay></audio>
+                <video class="localVideo" autoplay muted></video>
+                <video class="remoteVideo" autoplay></video>
+              </div>
+            </div>
+            <div class="datachannelCall" style="display: none">
+              <div style="height: 240px" class="pre-scrollable display-datachannel"></div>
+              <div class="input-group">
+                <input type="text" class="form-control input-datachannel" placeholder="Send a message through DataChannel...">
+                <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btnSend">Send</button>
+                        </span>
+              </div>
+            </div>
+          </div>
+          <!-- /panel-body call-body -->
+        </div>
+        <!-- panel panel-default -->
+      </div>
+      <!-- /Call - 1 -->
+
+    </div>
+    <!--/row calls-->
+    <!--  <hr> -->
+
+  </div>
+  <!--/container-->
+  <!-- /Calls -->
+
+  <!-- MSRP -->
+  <div class="container" style="display: none;">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3><i class="glyphicon glyphicon-refresh"></i> MSRP Functions</h3>
+        <hr>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control msrp-target" id="chatTarget" placeholder="Target" disabled>
+            <span class="input-group-btn">
+                        <button class="btn btn-primary msrp-chat-btn" id="chatBtn" type="button" disabled>Chat</button>
+                    </span>
+          </div>
+          <span class="help-block" style="display: none">Target is not valid.</span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              <i class="glyphicon glyphicon-wrench pull-right"></i>
+              <h4>Configuration</h4>
+            </div>
+          </div>
+          <div class="panel-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label">Connection Mode</label>
+                <div class="col-sm-8">
+                  <label class="radio-inline">
+                    <input type="radio" name="msrpSecure" id="inlineRadio1" value="secure"> Secure
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="msrpSecure" id="inlineRadio2" value="un-secure" checked> Un-Secure
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-4 control-label">Chunk Size (byte)</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="chunkSize" placeholder="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label">Chat Content Type</label>
+                <div class="col-sm-8">
+                  <label class="checkbox-inline">
+                    <input type="radio" name="acceptType" id="textPlain" value="text/plain" checked> text/plain
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="radio" name="acceptType" id="messageCpim" value="message/cpim"> message/cpim
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!--/panel content-->
+        </div>
+        <!--/panel-->
+
+      </div>
+      <!--/col-->
+    </div>
+    <!-- /row -->
+
+    <div class="row chats">
+      <div class="col-md-6 msrp-chat-template" style="display: none">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              <i class="glyphicon glyphicon-remove pull-right"></i>
+              <h4 class="panel-title"><span class="msrp-chat-with"></span></h4>
+            </div>
+          </div>
+          <div class="panel-body" style="padding: 0;">
+            <div style="height: 300px;width: 100%;padding: 10px" class="pre-scrollable msrp-chat-box">
+              <div class="msg-template" style="display: none">
+                <span class="time-user"></span><span class="msg"></span>
+              </div>
+              <div class="ft-template" style="display: none">
+                <span class="time-user"></span>
+                <div class="ft-info">
+                  <p class="title"></p>
+                  <table class="table-msrp" style="margin: 0 5% 10px 5%; width: 90%;">
+                    <tr class="heading-msrp">
+                      <th class="dh">File Name</th>
+                      <th class="dh">File Size (KB)</th>
+                    </tr>
+                    <tr class="heading-msrp progress-tr-tpl" style="display: none">
+                      <td colspan="2" class="cell-msrp progress-td"></td>
+                    </tr>
+                    <tr class="row-msrp file-tpl" style="display: none">
+                      <td class="cell-msrp file-name"></td>
+                      <td class="cell-msrp file-size"></td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="operations" style="display: none">
+                  <a class="ft-accept" href="javascript:void(0)" style="padding-right: 8px">Accept</a>
+                  <a class="ft-decline" href="javascript:void(0)">Decline</a>
+                </div>
+                <div class="ft-progress" style="display: none">
+                  <div class="progress" style="display: none">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                      <span class="sr-only">0% Complete</span>
+                    </div>
+                  </div>
+                  <div class="cancel">
+                    <a class="ft-cancel" href="javascript:void(0)">Cancel</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-btn">
+                            <span class="btn btn-primary btn-file">
+                                Send File<input type="file" multiple>
+                            </span>
+              </span>
+              <input type="text" class="form-control msrp-message" placeholder="Send a message...">
+            </div>
+            <!-- /input-group -->
+          </div>
+        </div>
+        <!--/panel-->
+      </div>
+
+    </div>
+  </div>
+  <!-- /MSRP -->
+
+  <!-- MESSAGING -->
+  <div class="container" style="display: none;">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3><i class="glyphicon glyphicon-envelope"></i> Standalone Message</h3>
+        <hr>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-body" style="padding: 0;">
+            <div style="height: 300px;width: 100%;padding: 10px;" class="pre-scrollable messaging-chat-box">
+              <div class="messaging-template" style="display: none">
+                <span class="time-user"></span><span class="msg"></span>
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <input type="text" class="form-control messaging-target" id="sipTarget" placeholder="Target" required>
+              <div class="input-group">
+                <input type="text" class="form-control messaging-message" id="msgField" placeholder="Send a message...">
+                <span class="input-group-btn">
+                                <button class="btn btn-info messaging-send-btn" id="msgSend" type="button">Send</button>
+                            </span>
+              </div>
+              <span class="help-block" style="display: none">Target is not valid.</span>
+            </div>
+          </div>
+        </div>
+        <div id="messagingWarningDiv" class="alert alert-warning" style="display: none;margin-top: 20px">
+          <strong>Warning: </strong><span id="messagingWarningMsg"></span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+  <!-- /MESSAGING -->
+
+  <div style="position: fixed; bottom: 0; right: 0; z-index: 999" class="notifications">
+    <div class="alert alert-info alert-dismissible fade in call-notify-template" role="alert" style="display: none">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <h4 class="call-notify-header">Infomation</h4>
+      <p class="call-notify-desc">Description</p>
+      <p style="padding-top: 10px">
+        <button type="button" class="btn btn-info btn-sm call-accept">Accept</button>
+        <button type="button" class="btn btn-default btn-sm call-decline">Decline</button>
+      </p>
+    </div>
+    <div class="alert alert-info alert-dismissible fade in handover-notify-template" role="alert" style="display: none">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <h4 class="call-notify-header">Infomation</h4>
+      <!--
+        <p class="call-notify-desc">Description</p>
+-->
+      <p style="padding-top: 10px">
+        <button type="button" class="btn btn-info btn-sm handover-catch">Catch</button>
+        <button type="button" class="btn btn-sm handover-discard">Discard</button>
+      </p>
+    </div>
+  </div>
+
+  <div id="overlay">
+    <div style="font-size: 60px;color: blanchedalmond;text-align: center;padding-top: 50px;">Hibernated</div>
+  </div>
+</body>
+
+</html>
